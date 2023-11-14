@@ -14,7 +14,7 @@ clean:
 
 android-ndk:
 	mkdir -p ./AndroidNDK
-	@[ -f ./AndroidNDK/androidndk.zip ] && echo "skipping ndk download..." || wget -q -O ./AndroidNDK/androidndk.zip https://dl.google.com/android/repository/android-ndk-r25b-linux.zip
+	@[ -f ./AndroidNDK/androidndk.zip ] && echo "skipping ndk download..." || wget -q -O ./AndroidNDK/androidndk.zip https://dl.google.com/android/repository/android-ndk-r25c-linux.zip
 	
 android-sdk:
 	# NOTE: need to download manually from https://github.com/buttaface/swift-android-sdk/actions/workflows/sdks.yml
