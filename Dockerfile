@@ -76,15 +76,15 @@ RUN /usr/bin/termux-install z/zlib/zlib_1.3 libz.so libz.so
 # accessible at the path pointed to by this env var.
 # Downloadable here: https://curl.haxx.se/ca/cacert.pem
 #
-RUN /usr/bin/termux-install libc/libcurl/libcurl_8.2.1 libcurl.so libcurl.so
+RUN /usr/bin/termux-install libc/libcurl/libcurl_8.4.0 libcurl.so libcurl.so
 
 RUN /usr/bin/termux-install libr/libresolv-wrapper/libresolv-wrapper_1.1.7-4 libresolv_wrapper.so libresolv_wrapper.so
 
-RUN /usr/bin/termux-install libn/libnghttp2/libnghttp2_1.55.1 libnghttp2.so libnghttp2.so
+RUN /usr/bin/termux-install libn/libnghttp2/libnghttp2_1.58.0 libnghttp2.so libnghttp2.so
 RUN /usr/bin/termux-install libs/libssh2/libssh2_1.11.0 libssh2.so libssh2.so
 
-RUN /usr/bin/termux-install o/openssl/openssl_1:3.1.2 libssl.so.3 libssl.so
-RUN /usr/bin/termux-install o/openssl/openssl_1:3.1.2 libcrypto.so.3 libcrypto.so
+RUN /usr/bin/termux-install o/openssl/openssl_1:3.1.4 libssl.so.3 libssl.so
+RUN /usr/bin/termux-install o/openssl/openssl_1:3.1.4 libcrypto.so.3 libcrypto.so
 
 RUN /usr/bin/patch-elf libssh2.so --replace-needed "libssl.so.3" "libssl.so"
 RUN /usr/bin/patch-elf libssh2.so --replace-needed "libcrypto.so.3" "libcrypto.so"
