@@ -1,4 +1,4 @@
-FROM kittymac/silkroad:latest as builder
+FROM mbarrben/silkroad:latest as builder
 
 WORKDIR /root/SilkRoad
 COPY ./.build/repositories ./.build/repositories

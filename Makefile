@@ -34,19 +34,19 @@ docker-release: android-ndk android-sdk
 	
 	@if echo "$(GIT_VERSION)" | grep -q '-'; then																												\
 		echo "BUILDING LATEST";																																	\
-		docker buildx build --platform linux/amd64 --push -t kittymac/silkroad:latest . ;																		\
+		docker buildx build --platform linux/amd64 --push -t mbarrben/silkroad:latest . ;																		\
 	else																																						\
 		echo "BUILDING LATEST AND TAG $(GIT_VERSION)";																											\
-		docker buildx build --platform linux/amd64 --push -t kittymac/silkroad:latest -t kittymac/silkroad:$(GIT_VERSION) . ;			    					\
+		docker buildx build --platform linux/amd64 --push -t mbarrben/silkroad:latest -t mbarrben/silkroad:$(GIT_VERSION) . ;			    					\
 	fi
 
 
 docker-shell: docker-release
-	docker pull --platform linux/amd64 kittymac/silkroad
-	docker run --rm -it --entrypoint bash kittymac/silkroad
+	docker pull --platform linux/amd64 mbarrben/silkroad
+	docker run --rm -it --entrypoint bash mbarrben/silkroad
 
 docker-test: docker-release
-	docker pull --platform linux/amd64 kittymac/silkroad:latest
+	docker pull --platform linux/amd64 mbarrben/silkroad:latest
 	
 	# Build our Swift projects into shared libraries using Docker
 	-docker buildx create --name cluster_builder203
@@ -56,13 +56,13 @@ docker-test: docker-release
 	-docker login
 	
 	swift package resolve
-	docker buildx build -f Dockerfile.silkroad --platform linux/amd64 --push -t kittymac/silkroadtest .
-	docker pull --platform linux/amd64 kittymac/silkroadtest:latest
+	docker buildx build -f Dockerfile.silkroad --platform linux/amd64 --push -t mbarrben/silkroadtest .
+	docker pull --platform linux/amd64 mbarrben/silkroadtest:latest
 	
 	# Copy the built shared libraries into our jniLibs folder
 	rm -rf /tmp/jniLibs
 	mkdir -p /tmp/jniLibs
-	docker run --rm -v /tmp/jniLibs:/jniLibs kittymac/silkroadtest /bin/bash -lc 'cp -r /root/lib/* /jniLibs/'
+	docker run --rm -v /tmp/jniLibs:/jniLibs mbarrben/silkroadtest /bin/bash -lc 'cp -r /root/lib/* /jniLibs/'
 	rm -rf ./SilkRoadAndroidTest/app/src/main/jniLibs/
 	mkdir -p ./SilkRoadAndroidTest/app/src/main/jniLibs/
 	cp -r /tmp/jniLibs/* ./SilkRoadAndroidTest/app/src/main/jniLibs/
@@ -72,6 +72,6 @@ docker-test: docker-release
 	
 
 docker-test-shell: docker-test
-	docker pull --platform linux/amd64 kittymac/silkroadtest
-	docker run --rm -it --entrypoint bash kittymac/silkroadtest
+	docker pull --platform linux/amd64 mbarrben/silkroadtest
+	docker run --rm -it --entrypoint bash mbarrben/silkroadtest
 
